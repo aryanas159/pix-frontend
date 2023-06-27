@@ -54,7 +54,7 @@ function Auth() {
 						boxShadow: `0 0 30px ${alpha(theme.palette.neutral.dark, 0.2)}`,
 						display: "flex",
 						flexDirection: {xs: 'column', sm: 'row'},
-						padding: theme.spacing(4),
+						padding: {xs: theme.spacing(3, 0), sm: theme.spacing(4)},
 						margin: theme.spacing(4, 0),
 						transition: "all 1.5s",
 					}}
@@ -68,7 +68,7 @@ function Auth() {
 							display: "flex",
 							alignItems: "center",
 							gap: "24px",
-							padding: theme.spacing(0, 3),
+							padding: {xs: theme.spacing(0, 2), sm: theme.spacing(0, 3)},
 							justifyContent: "center",
 						}}
 					>
@@ -105,8 +105,8 @@ function Auth() {
 						direction="column"
 						sx={{
 							display: "flex",
-							p: theme.spacing(3, 0, 1, 8),
-							justifyContent: "center",
+							p: {xs: theme.spacing(3, 0, 1, 5), sm: theme.spacing(3, 0, 1, 8)},
+							
 						}}
 					>
 						{formType === "register" ? <RegistrationForm isMobile={isMobile}/> : <LoginForm isMobile={isMobile}/>}
