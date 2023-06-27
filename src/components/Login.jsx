@@ -73,7 +73,12 @@ const LoginForm = ({isMobile}) => {
 								onBlur={handleBlur}
 								error={touched.email && errors.email}
 								helperText={touched.email && errors.email}
-								sx={{ width: "60%" }}
+								sx={{
+									width: { xs: "80%", sm: "60%" },
+									"& .MuiFormLabel-root": {
+										fontSize: { xs: "0.9rem", sm: "1rem" },
+									},
+								}}
 							/>
 							<TextField
 								id="password"
@@ -85,7 +90,12 @@ const LoginForm = ({isMobile}) => {
 								onBlur={handleBlur}
 								error={touched.password && errors.password}
 								helperText={touched.password && errors.password}
-								sx={{ width: "60%" }}
+								sx={{
+									width: { xs: "80%", sm: "60%" },
+									"& .MuiFormLabel-root": {
+										fontSize: { xs: "0.9rem", sm: "1rem" },
+									},
+								}}
 							/>
 							<Typography color={'error'} fontSize={'small'} sx={{margin: '0px', padding: '0px'}}>{errMsg}</Typography>
 						</Stack>
@@ -93,7 +103,7 @@ const LoginForm = ({isMobile}) => {
 							type="submit"
 							variant="contained"
 							sx={{
-								width: "200px",
+								width: {xs: '150px', sm: '200px'},
 								marginTop: "20px",
 							}}
 						>
