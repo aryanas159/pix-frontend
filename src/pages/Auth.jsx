@@ -15,8 +15,8 @@ import RegistrationForm from "../components/Register";
 import LoginForm from "../components/Login";
 import darkBg from "../assets/bg_dark.jpg";
 import lightBg from "../assets/bg_light.jpg";
-import logoLight from "../assets/logo_light.png";
-
+import lightLogo from "../assets/logo_light.png";
+import darkLogo from '../assets/logo_dark.png'
 function Auth() {
 	const isMobile = useMediaQuery('(max-width: 600px)');
 	const mode = useSelector((state) => state.mode);
@@ -72,12 +72,12 @@ function Auth() {
 							justifyContent: "center",
 						}}
 					>
-						<img src={logoLight} style={{ height: `${isMobile ? '80px' : '100px'}` }} />
+						<img src={mode === 'light' ? lightLogo : darkLogo} style={{ height: `${isMobile ? '80px' : '100px'}` }} />
 
-						<Typography variant="h4" fontWeight={600} align="center" fontSize={isMobile ? '1.8rem' : '2.125rem'}>
+						<Typography variant="h4" fontWeight={600} align="center" fontSize={isMobile ? '1.8rem' : '2.125rem'} color={'primary'}>
 							Welcome to PIX
 						</Typography>
-						<Typography align="center" lineHeight={2} paragraph fontSize={isMobile ? '0.9rem' : '1rem'}>
+						<Typography align="center" lineHeight={2} paragraph fontSize={isMobile ? '0.9rem' : '1rem'} >
 							The ultimate social networking platform that empowers you to
 							connect with friends, share your life's moments, and explore a
 							world of endless possibilities.
