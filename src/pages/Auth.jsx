@@ -32,7 +32,7 @@ function Auth() {
 		image.src = imageUrl;
 		image.onload = () => setLoading(false)
 	}, [mode])
-	
+
 	return (	
 		<Box
 			sx={{
@@ -45,7 +45,7 @@ function Auth() {
 				position: "relative",
 				alignItems: "center",
 				justifyContent: "center",
-
+				transition: 'all 1s'
 			}}
 		>
 			<Switch
@@ -67,7 +67,6 @@ function Auth() {
 					flexDirection: { xs: "column", sm: "row" },
 					padding: { xs: theme.spacing(3, 0), sm: theme.spacing(4) },
 					margin: theme.spacing(4, 0),
-					transition: "all 1.5s",
 				}}
 			>
 				<Grid
