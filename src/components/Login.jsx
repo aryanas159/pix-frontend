@@ -61,7 +61,7 @@ const LoginForm = ({isMobile}) => {
 					errors,
 					handleChange,
 				}) => (
-					<form onSubmit={handleSubmit}>
+					<form onSubmit={handleSubmit} style={{width: `${isMobile ? '100%' : '70%'}`}}>
 						<Stack direction="column" spacing={2}>
 							<TextField
 								id="email"
@@ -74,7 +74,7 @@ const LoginForm = ({isMobile}) => {
 								error={touched.email && errors.email}
 								helperText={touched.email && errors.email}
 								sx={{
-									width: { xs: "80%", sm: "60%" },
+									width: { xs: "80%", sm: "100%" },
 									"& .MuiFormLabel-root": {
 										fontSize: { xs: "0.9rem", sm: "1rem" },
 									},
@@ -91,7 +91,7 @@ const LoginForm = ({isMobile}) => {
 								error={touched.password && errors.password}
 								helperText={touched.password && errors.password}
 								sx={{
-									width: { xs: "80%", sm: "60%" },
+									width: { xs: "80%", sm: "100%" },
 									"& .MuiFormLabel-root": {
 										fontSize: { xs: "0.9rem", sm: "1rem" },
 									},

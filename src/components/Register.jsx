@@ -73,8 +73,8 @@ const RegistrationForm = ({ isMobile }) => {
 				handleChange,
 				setFieldValue,
 			}) => (
-				<form onSubmit={handleSubmit}>
-					<Stack direction="column" spacing={2}>
+				<form onSubmit={handleSubmit} style={{width: `${isMobile ? '100%' : '70%'}`}}>
+					<Stack direction="column" spacing={2} >
 						<TextField
 							id="firstName"
 							variant="standard"
@@ -85,7 +85,7 @@ const RegistrationForm = ({ isMobile }) => {
 							error={touched.firstName && errors.firstName}
 							helperText={touched.firstName && errors.firstName}
 							sx={{
-								width: { xs: "80%", sm: "60%" },
+								width: { xs: "80%", sm: "100%" },
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -101,7 +101,7 @@ const RegistrationForm = ({ isMobile }) => {
 							error={touched.lastName && errors.lastName}
 							helperText={touched.lastName && errors.lastName}
 							sx={{
-								width: { xs: "80%", sm: "60%" },
+								width: { xs: "80%", sm: "100%" },
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -118,7 +118,7 @@ const RegistrationForm = ({ isMobile }) => {
 							error={touched.email && errors.email}
 							helperText={touched.email && errors.email}
 							sx={{
-								width: { xs: "80%", sm: "60%" },
+								width: { xs: "80%", sm: "100%" },
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -135,7 +135,7 @@ const RegistrationForm = ({ isMobile }) => {
 							error={touched.password && errors.password}
 							helperText={touched.password && errors.password}
 							sx={{
-								width: { xs: "80%", sm: "60%" },
+								width: { xs: "80%", sm: "100%" },
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -152,7 +152,7 @@ const RegistrationForm = ({ isMobile }) => {
 							error={touched.confirmPassword && errors.confirmPassword}
 							helperText={touched.confirmPassword && errors.confirmPassword}
 							sx={{
-								width: { xs: "80%", sm: "60%" },
+								width: { xs: "80%", sm: "100%" },
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},

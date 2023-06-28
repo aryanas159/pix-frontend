@@ -28,7 +28,7 @@ const MyDropzone = ({setFieldValue, values, isMobile}) => {
 				borderBottom: `1px solid ${theme.palette.neutral.dark}`,
 				cursor: "pointer",
 				borderRadius: "10px",
-				width: `${isMobile ? '80%' : '60%'}`,
+				width: `${isMobile ? '80%' : '100%'}`,
 				padding: "0px 10px",
 				marginTop: "30px",
 				display: "flex",
