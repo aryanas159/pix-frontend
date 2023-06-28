@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	Box,
@@ -23,10 +23,20 @@ function Auth() {
 	const dispatch = useDispatch();
 	const theme = useTheme();
 	const [formType, setFormType] = useState("register");
-	return (
+	const [loading, setLoading] = useState(true)
+	
+	// console.log(imageUrl)
+	useEffect(() => {
+		const imageUrl = mode === "dark" ? darkBg : lightBg
+		const image = new Image();
+		image.src = imageUrl;
+		image.onload = () => setLoading(false)
+	}, [mode])
+	
+	return (	
 		<Box
 			sx={{
-				backgroundImage: `url(${mode === "dark" ? darkBg : lightBg})`,
+				backgroundImage: `url(${mode === "dark" ? !loading && darkBg : !loading && lightBg})`,
 				backgroundSize: "cover",
 				backgroundRepeat: "no-repeat",
 				backgroundOrigin: "center center",
@@ -35,6 +45,7 @@ function Auth() {
 				position: "relative",
 				alignItems: "center",
 				justifyContent: "center",
+
 			}}
 		>
 			<Switch
