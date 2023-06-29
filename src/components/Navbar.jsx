@@ -41,7 +41,7 @@ const Navbar = () => {
 					>
 						<img
 							src={mode === "light" ? lightLogo : darkLogo}
-							style={{ height: `${isMobile ? '25px' : '40px'}` }}
+							style={{ height: `${isMobile ? '30px' : '40px'}` }}
 						/>
 						<Typography
 							variant="h4"
