@@ -143,7 +143,7 @@ function Auth() {
 						sx={{ display: 'flex', alignItems: "center", justifyContent: "center"	}}
 					>
 						{formType === "register" ? (
-							<RegistrationForm isMobile={isMobile} />
+							<RegistrationForm isMobile={isMobile} setFormType={setFormType}/>
 						) : (
 							<LoginForm isMobile={isMobile} />
 						)}

@@ -73,8 +73,12 @@ const LoginForm = ({isMobile}) => {
 								onBlur={handleBlur}
 								error={touched.email && errors.email}
 								helperText={touched.email && errors.email}
+								
 								sx={{
 									width: { xs: "80%", sm: "100%" },
+									"& .MuiInputBase-input": {
+										fontWeight: '200'
+									},
 									"& .MuiFormLabel-root": {
 										fontSize: { xs: "0.9rem", sm: "1rem" },
 									},
@@ -92,6 +96,9 @@ const LoginForm = ({isMobile}) => {
 								helperText={touched.password && errors.password}
 								sx={{
 									width: { xs: "80%", sm: "100%" },
+									"& .MuiInputBase-input": {
+										fontWeight: '200'
+									},
 									"& .MuiFormLabel-root": {
 										fontSize: { xs: "0.9rem", sm: "1rem" },
 									},

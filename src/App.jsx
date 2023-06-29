@@ -13,7 +13,9 @@ const App = () => {
 			<CssBaseline>
 				<BrowserRouter>
 					<Routes>
-						<Route path="/home" element={useSelector(state => state.token ? <Feed /> : <Navigate to="/auth" /> )} />
+						{/* <Route path="/home" element={useSelector(state => state.token ? <Feed /> : <Navigate to="/auth" /> )} /> */}
+
+						<Route path="/home" element={<Feed />} />
 						<Route path="/auth" element={<Auth />} />
 						<Route path="/search" element={<SearchResults />} />
 						<Route path="/:userId" element={<UserProfile />} />

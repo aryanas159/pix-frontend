@@ -33,9 +33,10 @@ const userSchema = yup.object({
 		.required("Required"),
 });
 
-const RegistrationForm = ({ isMobile }) => {
+const RegistrationForm = ({ isMobile, setFormType }) => {
 	const theme = useTheme();
 	const [errMsg, setErrMsg] = useState("");
+	const [successMsg, setsuccessMsg] = useState("");
 	const initialValues = {
 		firstName: "",
 		lastName: "",
@@ -53,7 +54,8 @@ const RegistrationForm = ({ isMobile }) => {
 				formData.append(key, values[key]);
 			});
 			const data = await axios.post("/auth/register", formData);
-			console.log(data);
+			setFormType('login')
+			setsuccessMsg('Successfully registered, login to continue')
 		} catch (error) {
 			setErrMsg(error.response.data.message);
 		}
@@ -86,6 +88,9 @@ const RegistrationForm = ({ isMobile }) => {
 							helperText={touched.firstName && errors.firstName}
 							sx={{
 								width: { xs: "80%", sm: "100%" },
+								"& .MuiInputBase-input": {
+									fontWeight: '200'
+								},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -102,6 +107,9 @@ const RegistrationForm = ({ isMobile }) => {
 							helperText={touched.lastName && errors.lastName}
 							sx={{
 								width: { xs: "80%", sm: "100%" },
+								"& .MuiInputBase-input": {
+										fontWeight: '200'
+									},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -119,6 +127,9 @@ const RegistrationForm = ({ isMobile }) => {
 							helperText={touched.email && errors.email}
 							sx={{
 								width: { xs: "80%", sm: "100%" },
+								"& .MuiInputBase-input": {
+										fontWeight: '200'
+									},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -136,6 +147,9 @@ const RegistrationForm = ({ isMobile }) => {
 							helperText={touched.password && errors.password}
 							sx={{
 								width: { xs: "80%", sm: "100%" },
+								"& .MuiInputBase-input": {
+										fontWeight: '200'
+									},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -153,6 +167,9 @@ const RegistrationForm = ({ isMobile }) => {
 							helperText={touched.confirmPassword && errors.confirmPassword}
 							sx={{
 								width: { xs: "80%", sm: "100%" },
+								"& .MuiInputBase-input": {
+										fontWeight: '200'
+									},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -178,6 +195,11 @@ const RegistrationForm = ({ isMobile }) => {
 							sx={{ margin: "0px", padding: "0px" }}
 						>
 							{errMsg}
+						</Typography>
+						<Typography
+							sx={{ margin: "0px", padding: "0px", color: theme.palette.success.main}}
+						>
+							{successMsg}
 						</Typography>
 					</Stack>
 					<Button

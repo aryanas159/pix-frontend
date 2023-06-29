@@ -12,10 +12,15 @@ export  const userSlice = createSlice({
     reducers: {
         setMode: (state) => {state.mode = state.mode === 'light' ? 'dark' : 'light'},
         setUser: (state, actions) => {state.user = actions.payload},
-        setToken: (state, actions) => {state.token = actions.payload}
+        setToken: (state, actions) => {state.token = actions.payload},
+        setLogout: (state) => {
+            state.token = null
+            state.user = null
+            state.posts = []
+        }
     }
 
 })
 
-export const {setMode, setUser, setToken} = userSlice.actions;
+export const {setMode, setUser, setToken, setLogout} = userSlice.actions;
 export default userSlice.reducer;
