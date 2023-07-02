@@ -5,8 +5,7 @@ import "./index.css";
 import { store, persistor } from "./app/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import axios from "axios";
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<>

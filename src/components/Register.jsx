@@ -89,7 +89,7 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-									fontWeight: '200'
+									fontWeight: '300'
 								},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
@@ -108,7 +108,7 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-										fontWeight: '200'
+										fontWeight: '300'
 									},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
@@ -128,7 +128,7 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-										fontWeight: '200'
+										fontWeight: '300'
 									},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
@@ -148,7 +148,7 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-										fontWeight: '200'
+										fontWeight: '300'
 									},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
@@ -168,7 +168,7 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-										fontWeight: '200'
+										fontWeight: '300'
 									},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },

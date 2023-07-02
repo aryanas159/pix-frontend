@@ -1,6 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha, InputBase } from "@mui/material";
-
+import { useMemo } from "react";
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
 	borderRadius: theme.shape.borderRadius,
@@ -44,7 +44,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-const SearchInput = () => {
+const SearchInput = ({search, setSearch, searchFocus, setSearchFocus}) => {
+	const handleSearch = (e) => {
+		if (e.target.value != search) {
+			setSearch(e.target.value)
+		}
+	}
 	return (
 		<Search>
 			<SearchIconWrapper>
@@ -53,6 +58,10 @@ const SearchInput = () => {
 			<StyledInputBase
 				placeholder="Search…"
 				inputProps={{ "aria-label": "search" }}
+				value={search}
+				onChange={handleSearch}
+				onFocus={() => setSearchFocus(true)}
+				onBlur={() => setSearchFocus(false)}
 			/>
 		</Search>
 	);

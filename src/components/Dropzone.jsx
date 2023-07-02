@@ -7,8 +7,6 @@ const MyDropzone = ({setFieldValue, values, isMobile}) => {
 	const onDrop = (acceptedFiles, rejectedFiles) => {
 		// Handle the acceptedFiles and rejectedFiles arrays
         setFieldValue("picture", acceptedFiles[0]);
-		console.log("Accepted Files:", acceptedFiles);
-		console.log("Rejected Files:", rejectedFiles);
 	};
 
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({
