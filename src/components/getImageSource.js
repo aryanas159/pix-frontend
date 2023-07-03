@@ -13,7 +13,6 @@ const getImageSource = (base64String) => {
 
 	// Create an object URL for the Blob
 	const imageURL = URL.createObjectURL(blob);
-    console.log(imageURL)
 	return imageURL;
 };
 

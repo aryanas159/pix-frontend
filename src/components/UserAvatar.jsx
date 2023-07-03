@@ -1,10 +1,11 @@
-import { Avatar } from "@mui/material";
+import { Avatar, useTheme } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import getImageSource from "./getImageSource";
 import { useEffect, useState } from "react";
 import axios from "axios";
 const UserAvatar = ({userId, picturePath}) => {
 	const [imgSource, setImgSource] = useState("");
+	const theme = useTheme()
 	useEffect(() => {
 		axios
 			.get(`/users/image/${userId}`)
@@ -12,7 +13,7 @@ const UserAvatar = ({userId, picturePath}) => {
 				const base64String = res.data.base64String;
 				setImgSource(getImageSource(base64String))
 			});
-	}, []);
+	}, [userId]);
     const navigate = useNavigate()
     return (
         <Avatar
@@ -22,7 +23,10 @@ const UserAvatar = ({userId, picturePath}) => {
 					cursor: "pointer",
 					width: { xs: "35px", sm: "45px" },
 					height: { xs: "35px", sm: "45px" },
+					// backgroundColor: '#fff',
+					color: theme.palette.neutral.dark
 				}}
+				
 				onClick={() => navigate(`/${userId}`)}
 			/>
     )

@@ -1,12 +1,12 @@
 import { grey } from "@mui/material/colors";
-
+import { alpha } from "@mui/material";
 const getDesignTokens = (mode) => ({
 	palette: {
 		mode,
 		...(mode === "light" ? {
             //palette for light mode
             primary: {
-                main: '#231651',
+                main: '#D7263D',
                 light: '#2374AB'
             },
             neutral: {
@@ -16,11 +16,11 @@ const getDesignTokens = (mode) => ({
             background: {
                 default: grey[400],
                 light: grey[200],
-                lighter: grey[400],
-                button: grey[400],
+                lighter: alpha("#FFCCCB", 1),
+                button: grey[300],
             },
             navbar: {
-                main: '#38AECC'
+                main: '#D7263D'
             }
         } : {
             // palette for dark mode

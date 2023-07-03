@@ -1,4 +1,4 @@
-import { Avatar, Menu, MenuItem, IconButton } from "@mui/material";
+import { Avatar, Menu, MenuItem, IconButton, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { setLogout } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import getImageSource from "./getImageSource";
 import axios from "axios";
 
 const UserProfile = ({ firstName, userId, isMobile }) => {
-	const user = useSelector((state) => state.user);
+	const theme = useTheme()
 	const mode = useSelector((state) => state.mode);
 	const [imgSource, setImgSource] = useState("");
 	const [anchorEl, setEnchorEl] = useState(null);
@@ -43,6 +43,7 @@ const UserProfile = ({ firstName, userId, isMobile }) => {
 					cursor: "pointer",
 					width: { xs: "35px", sm: "45px" },
 					height: { xs: "35px", sm: "45px" },
+					color: theme.palette.neutral.dark
 				}}
 				onClick={handleClick}
 			/>
@@ -57,13 +58,13 @@ const UserProfile = ({ firstName, userId, isMobile }) => {
 				}}
 			>
 				<MenuItem
-					dense={isMobile}
+					
 					onClick={() => {
 						handleClose();
 						navigate(`/${userId}`);
 					}}
 					sx={{
-						width: { xs: "100px", sm: "120px" },
+						width: "120px",
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
@@ -74,9 +75,9 @@ const UserProfile = ({ firstName, userId, isMobile }) => {
 				</MenuItem>
 				{isMobile && (
 					<MenuItem
-						dense={isMobile}
+						
 						sx={{
-							width: { xs: "100px", sm: "120px" },
+							width: "120px",
 							display: "flex",
 							justifyContent: "center",
 						}}
@@ -88,9 +89,9 @@ const UserProfile = ({ firstName, userId, isMobile }) => {
 				)}
 				{isMobile && (
 					<MenuItem
-						dense={isMobile}
+						
 						sx={{
-							width: { xs: "100px", sm: "120px" },
+							width: "120px",
 							display: "flex",
 							justifyContent: "center",
 						}}
@@ -100,13 +101,13 @@ const UserProfile = ({ firstName, userId, isMobile }) => {
 					</MenuItem>
 				)}
 				<MenuItem
-					dense={isMobile}
+					
 					onClick={() => {
 						handleClose();
 						dispatch(setLogout());
 					}}
 					sx={{
-						width: { xs: "100px", sm: "120px" },
+						width: "120px",
 						display: "flex",
 						justifyContent: "center",
 					}}

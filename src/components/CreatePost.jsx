@@ -13,6 +13,7 @@ import { useDropzone } from "react-dropzone";
 import { useState } from "react";
 import axios from "axios";
 import { setPost, setPosts } from "../features/userSlice";
+
 const ImageUpload = ({ setPicture, picture }) => {
 	const onDrop = (acceptedFiles) => {
 		setPicture(acceptedFiles[0]);
@@ -40,7 +41,9 @@ const ImageUpload = ({ setPicture, picture }) => {
 			) : !picture ? (
 				<></>
 			) : (
-				<Typography sx={{ fontSize: "0.8rem" }}>{picture.name}</Typography>
+				<Typography sx={{ fontSize: "0.8rem" }}>{
+					picture.name ? picture.name.length > 20 ? '...' + picture.name.slice(20) : picture.name : ''
+				}</Typography>
 			)}
 		</Box>
 	);
@@ -106,10 +109,9 @@ const CreatePost = () => {
 						borderRadius: "20px",
 						"& .MuiInputBase-root": {
 							borderRadius: "40px",
-							border: "1px solid #000",
 						},
 						"& .css-ef9o8m-MuiInputBase-input-MuiOutlinedInput-input": {
-							fontWeight: "500",
+							fontWeight: "400",
 						},
 					}}
 					inputProps={{

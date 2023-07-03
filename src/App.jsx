@@ -1,5 +1,5 @@
 import { Auth, Feed, UserProfile, MobileAllUsers } from "./pages";
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import getDesignTokens from "./theme";
 import { createTheme, CssBaseline } from "@mui/material";
@@ -18,7 +18,6 @@ const App = () => {
 	const  user = useSelector(state => state.user)
 	const dispatch = useDispatch()
 	useEffect(() => {
-		console.log(user)
 		if (user) {
 			axios.get(`/users/${user._id}`)
 		.then(res => dispatch(setUser(res.data.user)))
@@ -31,11 +30,9 @@ const App = () => {
 				<BrowserRouter>
 					<Routes>
 						<Route path="/home" element={useSelector(state => state.token ? <Feed /> : <Navigate to="/auth" /> )} />
-						<Route path="/all" element={<MobileAllUsers />} />
-						{/* <Route path="/home" element={<Feed />} /> */}
+						<Route path="/all" element={useSelector(state => state.token ? <MobileAllUsers /> : <Navigate to="/auth" /> )} />
 						<Route path="/auth" element={<Auth />} />
-						{/* <Route path="/search" element={<SearchResults />} /> */}
-						<Route path="/:userId" element={<UserProfile />} />
+						<Route path="/:userId" element={useSelector(state => state.token ? <UserProfile /> : <Navigate to="/auth" /> )} />
 						<Route path="/" element={useSelector(state => state.token ? <Navigate to="/home" /> : <Navigate to="/auth" /> )} />
 					</Routes>
 				</BrowserRouter>
@@ -45,45 +42,3 @@ const App = () => {
 };
 
 export default App;
-
-{
-	/* <form onSubmit={handleSubmit}>
-      <input type="file" />
-      <button type="submit">Upload</button>
-      </form> */
-}
-// const handleSubmit = async (values, actions) => {
-//     const fileName = values['file'].name;
-//     let formData = new FormData();
-//     formData.append('picturePath', `${Date.now()}__${fileName}`)
-//     Object.keys(values).forEach((key) => {
-//         formData.append(key, values[key]);
-//     })
-
-//     console.log(formData)
-
-//     const data = await fetch('http://localhost:3000/file', {
-//       method: 'POST',
-//       body: formData,
-//     })
-
-// 		console.log(data)
-// 	};
-// 	return (
-// 		<>
-// 			<Formik initialValues={{ file: null }} onSubmit={handleSubmit}>
-// 				{(props) => (
-// 					<form onSubmit={props.handleSubmit} encType="multipart/form-data">
-// 						<input
-// 							type="file"
-// 							name="file"
-// 							onChange={(event) => {
-// 								props.setFieldValue("file", event.currentTarget.files[0]);
-// 							}}
-// 						/>
-// 						<button type="submit">Upload</button>
-// 					</form>
-// 				)}
-// 			</Formik>
-// 		</>
-// 	);
