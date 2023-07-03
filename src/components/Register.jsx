@@ -45,17 +45,33 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 		password: "",
 		confirmPassword: "",
 	};
+	const toBase64 = (file) => {
+		return new Promise((resolve, reject) => {
+			const fileReader = new FileReader()
+			fileReader.readAsDataURL(file)
+			fileReader.onload = () => {
+				resolve(fileReader.result)
+			};
+			fileReader.onerror = (error) => {
+				reject(error)
+			}
+		})
+	};
 	const handleSubmit = async (values) => {
 		try {
-			const pictureName = values["picture"].name;
+			const file = values["picture"];
+			const base64String = await toBase64(file)
+			// const pictureName = values["picture"].name;
 			let formData = new FormData();
-			formData.append("picturePath", `${Date.now()}__${pictureName}`);
+			// formData.append("picturePath", `${Date.now()}__${pictureName}`);
+			formData.append("pictureBase64Url", base64String);
 			Object.keys(values).forEach((key) => {
 				formData.append(key, values[key]);
 			});
-			const data = await axios.post("/auth/register", formData);
-			setFormType('login')
-			setsuccessMsg('Successfully registered, login to continue')
+			const urlEncoded = new URLSearchParams(formData).toString();
+			const data = await axios.post("/auth/register", urlEncoded);
+			setFormType("login");
+			setsuccessMsg("Successfully registered, login to continue");
 		} catch (error) {
 			setErrMsg(error.response.data.message);
 		}
@@ -75,8 +91,12 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 				handleChange,
 				setFieldValue,
 			}) => (
-				<form onSubmit={handleSubmit} style={{width: `${isMobile ? '100%' : '70%'}`}}>
-					<Stack direction="column" spacing={2} >
+				<form
+					onSubmit={handleSubmit}
+					style={{ width: `${isMobile ? "100%" : "70%"}` }}
+					encType="multipart/form-data"
+				>
+					<Stack direction="column" spacing={2}>
 						<TextField
 							id="firstName"
 							variant="standard"
@@ -89,7 +109,7 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-									fontWeight: '300'
+									fontWeight: "300",
 								},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
@@ -108,8 +128,8 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-										fontWeight: '300'
-									},
+									fontWeight: "300",
+								},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -128,8 +148,8 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-										fontWeight: '300'
-									},
+									fontWeight: "300",
+								},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -148,8 +168,8 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-										fontWeight: '300'
-									},
+									fontWeight: "300",
+								},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -168,8 +188,8 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							sx={{
 								width: { xs: "80%", sm: "100%" },
 								"& .MuiInputBase-input": {
-										fontWeight: '300'
-									},
+									fontWeight: "300",
+								},
 								"& .MuiFormLabel-root": {
 									fontSize: { xs: "0.9rem", sm: "1rem" },
 								},
@@ -197,7 +217,11 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 							{errMsg}
 						</Typography>
 						<Typography
-							sx={{ margin: "0px", padding: "0px", color: theme.palette.success.main}}
+							sx={{
+								margin: "0px",
+								padding: "0px",
+								color: theme.palette.success.main,
+							}}
 						>
 							{successMsg}
 						</Typography>
@@ -206,7 +230,7 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 						type="submit"
 						variant="contained"
 						sx={{
-							width: {xs: '150px', sm: '200px'},
+							width: { xs: "150px", sm: "200px" },
 							marginTop: "20px",
 						}}
 					>

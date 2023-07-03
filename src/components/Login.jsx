@@ -34,7 +34,8 @@ const LoginForm = ({isMobile}) => {
 			Object.keys(values).forEach((key) => {
 				formData.append(key, values[key]);
 			});
-			const response = await axios.post("/auth/login", formData);
+			const urlEncoded = new URLSearchParams(formData).toString();
+			const response = await axios.post("/auth/login", urlEncoded);
 			console.log(response);
 			const { token, user } = response.data;
 			dispatch(setUser(user));

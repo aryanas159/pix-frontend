@@ -17,16 +17,15 @@ import { useSelector, useDispatch } from "react-redux";
 import CommentIcon from "@mui/icons-material/Comment";
 import axios from "axios";
 import { setPosts, setPost } from "../features/userSlice";
-import { Collapse } from "@mui/material";
+import { Collapse, CircularProgress } from "@mui/material";
 import Comments from "./Comments";
+import getImageSource from "./getImageSource";
 
 const Post = ({
 	_id,
 	userId,
 	firstName,
 	lastName,
-	userPicturePath,
-	postPicturePath,
 	description,
 	likes,
 	comments,
@@ -36,28 +35,30 @@ const Post = ({
 	const isMobile = useMediaQuery("(max-width: 600px)");
 	const dispatch = useDispatch();
 	const [commentsVisible, setCommentsVisible] = useState(false);
-	const [imgExists, setImgExists] = useState(false);
+	const [loading, setLoading] = useState(true);
+	const [postImgSource, setPostImgSource] = useState("");
+	useEffect(() => {
+		axios
+			.get(`/posts/image/${_id}`)
+			.then((res) => {
+				const base64String = res.data.base64String;
+				if (base64String) {
+					setPostImgSource(getImageSource(base64String));
+				}
+			})
+			.then(() => setLoading(false))
+			.catch((err) => {
+				console.log(err);
+				setLoading(false);
+			});
+	}, []);
+
 	const handleLike = async () => {
 		const response = await axios.post(`/posts/${_id}/like`);
 		const { post } = response.data;
 		dispatch(setPost(post));
 	};
 
-	const checkImgExists = async () => {
-		try {
-			if (postPicturePath != "") {
-				await axios.get(
-					`${import.meta.env.VITE_BASE_URL}/image/${postPicturePath}`
-				);
-				setImgExists(true);
-			}
-		} catch (error) {
-			setImgExists(false);
-		}
-	};
-	useEffect(() => {
-		checkImgExists();
-	});
 	return (
 		<Box
 			display="flex"
@@ -68,7 +69,7 @@ const Post = ({
 			sx={{ width: { xs: "90vw", sm: "35vw" } }}
 		>
 			<Box display="flex" alignItems="center" paddingBottom="20px">
-				<UserAvatar picturePath={userPicturePath} userId={userId} />
+				<UserAvatar userId={userId} />
 				<Typography
 					sx={{
 						flex: 1,
@@ -78,19 +79,6 @@ const Post = ({
 				>
 					{`${firstName} ${lastName}`}
 				</Typography>
-				{/* {user._id === userId ? (
-					<></>
-				) : (
-					<IconButton>
-						{!user.friends.includes(userId) ? (
-							<PersonAddIcon sx={{ p: theme.spacing(1), fontSize: "40px" }} />
-						) : (
-							<PersonRemoveIcon
-								sx={{ p: theme.spacing(1), fontSize: "40px" }}
-							/>
-						)}
-					</IconButton>
-				)} */}
 			</Box>
 			<Box>
 				<Typography
@@ -106,16 +94,20 @@ const Post = ({
 				alignItems={"center"}
 				justifyContent={"center"}
 			>
-				{!!postPicturePath && imgExists && (
-					<img
-						src={`${import.meta.env.VITE_BASE_URL}/image/${postPicturePath}`}
-						alt={userId}
-						style={{
-							borderRadius: "25px",
-							maxWidth: "100%",
-							maxHeight: "100vh",
-						}}
-					/>
+				{loading ? (
+					<CircularProgress />
+				) : (
+					postImgSource && (
+						<img
+							src={postImgSource}
+							alt={userId}
+							style={{
+								borderRadius: "25px",
+								maxWidth: "100%",
+								maxHeight: "100vh",
+							}}
+						/>
+					)
 				)}
 			</Box>
 			<Box display="flex" alignItems="center">

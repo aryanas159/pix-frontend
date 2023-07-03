@@ -45,7 +45,18 @@ const ImageUpload = ({ setPicture, picture }) => {
 		</Box>
 	);
 };
-
+const toBase64 = (file) => {
+	return new Promise((resolve, reject) => {
+		const fileReader = new FileReader()
+		fileReader.readAsDataURL(file)
+		fileReader.onload = () => {
+			resolve(fileReader.result)
+		};
+		fileReader.onerror = (error) => {
+			reject(error)
+		}
+	})
+};
 const CreatePost = () => {
 	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
@@ -58,12 +69,12 @@ const CreatePost = () => {
 		if (description || picture.name) {
 			const formData = new FormData();
 			if (!!picture.name) {
-				formData.append("picturePath", `${Date.now()}__${picture.name}`);
-				formData.append("picture", picture);
-				formData.append("postPicturePath", `${Date.now()}__${picture.name}`);
+				const base64String = await toBase64(picture)
+				formData.append("pictureBase64Url", base64String);
 			}
 			formData.append("description", description);
-			const response = await axios.post("/posts", formData);
+			const urlEncoded = new URLSearchParams(formData).toString();
+			const response = await axios.post("/posts", urlEncoded);
 			const { allPosts } = response.data;
 			dispatch(setPosts({ posts: allPosts }));
 			setPicture({});

@@ -19,8 +19,10 @@ const App = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		console.log(user)
-		axios.get(`/users/${user._id}`)
+		if (user) {
+			axios.get(`/users/${user._id}`)
 		.then(res => dispatch(setUser(res.data.user)))
+		}
 	}, [])
 
 	return (

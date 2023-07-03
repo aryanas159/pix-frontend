@@ -34,7 +34,7 @@ const UserWidget = ({ userId }) => {
             mt={2}
 		>
 			<Box display="flex" gap={2}>
-				<UserAvatar userId={user._id} picturePath={user.picturePath} />
+				<UserAvatar userId={userId} />
 				<Box>
 					<Typography>{`${user.firstName} ${user.lastName}`}</Typography>
 					<Typography fontSize={14} color={theme.palette.grey[700]}>
