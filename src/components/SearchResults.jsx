@@ -87,8 +87,9 @@ function SearchResults({ search }) {
 								{person._id != user._id ? (
 									<IconButton
 										color="primary"
+										size="small"
 										sx={{
-											backgroundColor: theme.palette.background.button,
+											backgroundColor: theme.palette.background.lighter,
 											position: "absolute",
 											right: "10px",
 											zIndex: "3",
