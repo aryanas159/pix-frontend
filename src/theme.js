@@ -16,7 +16,7 @@ const getDesignTokens = (mode) => ({
             background: {
                 default: grey[300],
                 light: grey[200],
-                lighter: "#FFCCCB",
+                lighter: "#ffdad9",
                 button: grey[300],
             },
             navbar: {
