@@ -37,7 +37,7 @@ function SearchResults({ search }) {
 			<MenuList
 				sx={{
 					minWidth: { xs: "70vw", sm: "25vw" },
-					maxWidth: { xs: "70vw", sm: "30vw" },
+					maxWidth: { xs: "80vw", sm: "30vw" },
 					top: { xs: "8vh", sm: "4vw" },
 					left: { xs: "12vw", sm: "12vw" },
 					display: "flex",
