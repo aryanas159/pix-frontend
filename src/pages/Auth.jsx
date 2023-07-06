@@ -17,6 +17,9 @@ import darkBg from "../assets/bg_dark.jpg";
 import lightBg from "../assets/bg_light.jpg";
 import lightLogo from "../assets/logo_light.png";
 import darkLogo from "../assets/logo_dark.png";
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import NightlightIcon from '@mui/icons-material/Nightlight';
 function Auth() {
 	const isMobile = useMediaQuery("(max-width: 600px)");
 	const mode = useSelector((state) => state.mode);
@@ -52,6 +55,9 @@ function Auth() {
 				onChange={() => {
 					dispatch(setMode());
 				}}
+				checked={mode === 'dark'}
+				icon={<LightModeIcon />}
+				checkedIcon={<DarkModeIcon />}
 				sx={{ position: "absolute", top: "0px", left: "0px" }}
 			/>
 			<Grid

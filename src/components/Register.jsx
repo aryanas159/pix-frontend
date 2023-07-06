@@ -37,6 +37,7 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 	const theme = useTheme();
 	const [errMsg, setErrMsg] = useState("");
 	const [successMsg, setsuccessMsg] = useState("");
+	const [loading, setLoading] = useState(false)
 	const initialValues = {
 		firstName: "",
 		lastName: "",
@@ -59,6 +60,7 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 	};
 	const handleSubmit = async (values) => {
 		try {
+			setLoading(true)
 			const file = values["picture"];
 			const base64String = await toBase64(file)
 			// const pictureName = values["picture"].name;
@@ -70,10 +72,12 @@ const RegistrationForm = ({ isMobile, setFormType }) => {
 			});
 			const urlEncoded = new URLSearchParams(formData).toString();
 			const data = await axios.post("/auth/register", urlEncoded);
+			setLoading(false)
 			setFormType("login");
 			setsuccessMsg("Successfully registered, login to continue");
 		} catch (error) {
 			setErrMsg(error.response.data.message);
+			setLoading(false)
 		}
 	};
 	return (

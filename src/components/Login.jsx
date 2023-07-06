@@ -7,7 +7,7 @@ import {
 	Stack,
 	useTheme,
 	alpha,
-	Typography
+	Typography,
 } from "@mui/material";
 import { Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,12 +24,15 @@ const LoginForm = ({isMobile}) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [errMsg, setErrMsg] = useState('')
+	const [loading, setLoading] = useState(false)
+
 	const initialValues = {
 		email: "",
 		password: "",
 	};
 	const handleSubmit = async (values) => {
 		try {
+			setLoading(true)
 			let formData = new FormData();
 			Object.keys(values).forEach((key) => {
 				formData.append(key, values[key]);
@@ -40,11 +43,13 @@ const LoginForm = ({isMobile}) => {
 			const { token, user } = response.data;
 			dispatch(setUser(user));
 			dispatch(setToken(token));
+			setLoading(false)
 			if (token) {
 				navigate("/home");
 			}
 		} catch (error) {
 			setErrMsg(error.response.data.message)
+			setLoading(false)
 		}
 	};
 	return (
@@ -108,6 +113,7 @@ const LoginForm = ({isMobile}) => {
 							<Typography color={'error'} fontSize={'small'} sx={{margin: '0px', padding: '0px'}}>{errMsg}</Typography>
 						</Stack>
 						<Button
+							disabled={loading}
 							type="submit"
 							variant="contained"
 							sx={{
@@ -117,6 +123,7 @@ const LoginForm = ({isMobile}) => {
 						>
 							Login
 						</Button>
+						{/* {loading && <CircularProgress size={24} sx={{}}/>} */}
 					</form>
 				)}
 			</Formik>

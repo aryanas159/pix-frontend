@@ -5,6 +5,7 @@ import {
 	IconButton,
 	Button,
 	Typography,
+	CircularProgress
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import UserAvatar from "./UserAvatar";
@@ -67,9 +68,10 @@ const CreatePost = () => {
 	const theme = useTheme();
 	const [description, setDescription] = useState("");
 	const [picture, setPicture] = useState({});
-
+	const [loading, setLoading] = useState(false)
 	const handlePost = async () => {
 		if (description || picture.name) {
+			setLoading(true)
 			const formData = new FormData();
 			if (!!picture.name) {
 				const base64String = await toBase64(picture)
@@ -83,6 +85,7 @@ const CreatePost = () => {
 			setPicture({});
 			setDescription("");
 			console.log(allPosts);
+			setLoading(false)
 		}
 	};
 
@@ -124,10 +127,12 @@ const CreatePost = () => {
 			<Box display={"flex"} justifyContent="space-between" alignItems="center">
 				<ImageUpload setPicture={setPicture} picture={picture} />
 				<Button
+					disabled={loading}
 					variant="contained"
 					sx={{ borderRadius: "20px" }}
 					onClick={handlePost}
 				>
+					{loading && <CircularProgress size={18} sx={{mr: '10px'}}/>}
 					Post
 				</Button>
 			</Box>

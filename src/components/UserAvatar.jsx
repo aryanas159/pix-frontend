@@ -6,19 +6,23 @@ import axios from "axios";
 const UserAvatar = ({userId, picturePath}) => {
 	const [imgSource, setImgSource] = useState("");
 	const theme = useTheme()
+	const [loading, setLoading] = useState(false)
+
 	useEffect(() => {
+		setLoading(true)
 		axios
 			.get(`/users/image/${userId}`)
 			.then((res) => {
 				const base64String = res.data.base64String;
 				setImgSource(getImageSource(base64String))
+				setLoading(false)
 			});
 	}, [userId]);
     const navigate = useNavigate()
     return (
         <Avatar
 				alt={userId}
-				src={imgSource}
+				src={loading ? "": imgSource}
 				sx={{
 					cursor: "pointer",
 					width: { xs: "35px", sm: "45px" },

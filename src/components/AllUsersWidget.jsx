@@ -11,9 +11,7 @@ const AllUsersWidget = () => {
 	const [allUsers, setAllUsers] = useState([]);
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
-    console.log(user)
 	const theme = useTheme();
-	const isMobile = useMediaQuery("(max-width: 600px)");
 	useEffect(() => {
 		axios
 			.get("/users/")
@@ -21,10 +19,8 @@ const AllUsersWidget = () => {
 			.catch((err) => console.log(err));
 	}, [user]);
     const handleFriend = async (friendId) => {
-        console.log(friendId)
         const res = await axios.post(`/users/${friendId}`)
         const newFriends = res.data.friends
-        console.log(newFriends)
         dispatch(setUserFriends( newFriends))
     }
 	return (
