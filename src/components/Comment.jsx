@@ -1,3 +1,4 @@
+import { useState } from "react";
 import UserAvatar from "./UserAvatar";
 import { Box, Typography, useTheme } from "@mui/material";
 const Comment = ({
@@ -9,6 +10,7 @@ const Comment = ({
 	content,
 }) => {
     const theme = useTheme()
+    
     return (
         <Box 
             display='flex'

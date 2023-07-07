@@ -31,7 +31,10 @@ const UserAvatar = ({userId, picturePath}) => {
 					color: theme.palette.neutral.dark
 				}}
 				
-				onClick={() => navigate(`/${userId}`)}
+				onClick={() => {
+					navigate(`/${userId}`)
+					window.location.reload()
+				}}
 			/>
     )
 }

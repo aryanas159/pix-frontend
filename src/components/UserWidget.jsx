@@ -3,22 +3,27 @@ import UserAvatar from "./UserAvatar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
+import {CircularProgress} from '@mui/material'
 const UserWidget = ({ userId }) => {
 	const isMobile = useMediaQuery("(max-width: 600px)");
 	const [user, setUser] = useState({});
 	const [userFriends, setUserFriends] = useState([]);
 	const theme = useTheme();
-    const currentUser = useSelector(state => state.user)
+	const currentUser = useSelector((state) => state.user);
+	const [loading, setLoading] = useState(false);
 	useEffect(() => {
+		setLoading(true);
 		axios
 			.get(`/users/${userId}`)
 			.then((res) => setUser(res.data.user))
 			.catch((err) => console.log(err));
 		axios
 			.get(`/users/${userId}/friends`)
-			.then((res) => setUserFriends(res.data.formattedFriends))
-			.catch((err) => console.log(err));
+			.then((res) => {
+				setUserFriends(res.data.formattedFriends);
+				setLoading(false);
+			})
+			.catch((err) => setLoading(false));
 	}, [currentUser, userId]);
 
 	return (
@@ -30,8 +35,8 @@ const UserWidget = ({ userId }) => {
 			p={theme.spacing(1, 2)}
 			borderRadius={"25px"}
 			backgroundColor={theme.palette.background.light}
-			sx={{ width: {xs: '90vw', sm: '20vw'} }}
-            mt={2}
+			sx={{ width: { xs: "90vw", sm: "20vw" } }}
+			mt={2}
 		>
 			<Box display="flex" gap={2}>
 				<UserAvatar userId={userId} />
@@ -43,26 +48,38 @@ const UserWidget = ({ userId }) => {
 				</Box>
 			</Box>
 			<Typography color={theme.palette.grey[700]}>{user.email}</Typography>
-            <div
-                style={{width: '100%', height: '2px', backgroundColor: theme.palette.background.lighter, borderRadius: '2px'}}
-            ></div>
+			<div
+				style={{
+					width: "100%",
+					height: "2px",
+					backgroundColor: theme.palette.background.lighter,
+					borderRadius: "2px",
+				}}
+			></div>
 			<Typography>Friends -</Typography>
-			<Stack spacing={3}>
-				{userFriends.length &&
-					userFriends.map((friend) => {
-						return (
-							<Box display="flex" gap={2}>
-								<UserAvatar userId={friend._id} picturePath={friend.picturePath} />
-								<Box>
-									<Typography>{`${friend.firstName} ${friend.lastName}`}</Typography>
-									<Typography fontSize={14} color={theme.palette.grey[700]}>
-										{friend.email}
-									</Typography>
+			{loading ? (
+				<CircularProgress />
+			) : (
+				<Stack spacing={3}>
+					{userFriends.length &&
+						userFriends.map((friend) => {
+							return (
+								<Box display="flex" gap={2}>
+									<UserAvatar
+										userId={friend._id}
+										picturePath={friend.picturePath}
+									/>
+									<Box>
+										<Typography>{`${friend.firstName} ${friend.lastName}`}</Typography>
+										<Typography fontSize={14} color={theme.palette.grey[700]}>
+											{friend.email}
+										</Typography>
+									</Box>
 								</Box>
-							</Box>
-						);
-					})}
-			</Stack>
+							);
+						})}
+				</Stack>
+			)}
 		</Box>
 	);
 };

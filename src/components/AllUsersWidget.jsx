@@ -43,7 +43,7 @@ const AllUsersWidget = () => {
                     }
 					return (
 						<Box display="flex" gap={2} alignItems='center'>
-							<UserAvatar userId={person._id} picturePath={person.picturePath} />
+							<UserAvatar userId={person._id} />
 							<Box flex={1}>
 								<Typography>{`${person.firstName} ${person.lastName}`}</Typography>
 								<Typography fontSize={14} color={theme.palette.grey[700]}>

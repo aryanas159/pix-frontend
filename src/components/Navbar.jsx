@@ -56,7 +56,10 @@ const Navbar = () => {
 					gap="20px"
 					>
 						<Box
-							onClick={() => navigate("/home")}
+							onClick={() => {
+								navigate("/home")
+								window.location.reload()
+							}}
 							display="flex"
 							alignItems="center"
 							justifyContent="center"

@@ -13,14 +13,16 @@ const Comments = ({ comments, postId }) => {
     const dispatch = useDispatch()
     const [isFocused, setIsFocused] = useState(false)
     const [comment, setComment] = useState('')
-
+	const [loading, setLoading] = useState(false)
     const handleComment = async () => {
+		setLoading(true)
         const response = await axios.post(`/posts/${postId}/comment`, {
             content: comment
         })
         const newComments = response.data
         dispatch(setComments({postId, newComments}))
 		setComment('')
+		setLoading(false)
     }
 	return (
 		<Stack direction="column" spacing={2} sx={{ padding: "10px 0px" }}>
@@ -43,8 +45,8 @@ const Comments = ({ comments, postId }) => {
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								<IconButton onClick={handleComment}>
-                                <SendIcon sx={{color: theme.palette.primary.light}}/> 
+								<IconButton onClick={handleComment} disabled={loading}>
+                                <SendIcon sx={{color: loading ? theme.palette.text.disabled : theme.palette.primary.light}}/> 
                                 </IconButton>
 							</InputAdornment>
 						),
