@@ -9,7 +9,8 @@ import axios from "axios";
 import { useEffect } from "react";
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 import { setUser } from "./features/userSlice";
-
+import { setLogout } from "./features/userSlice";
+import { useNavigate } from "react-router-dom";
 const App = () => {
 	const mode = useSelector((state) => state.mode);
 	const theme = createTheme(getDesignTokens(mode));
@@ -21,6 +22,9 @@ const App = () => {
 		if (user) {
 			axios.get(`/users/${user._id}`)
 		.then(res => dispatch(setUser(res.data.user)))
+		.catch(err => {
+			dispatch(setLogout())
+		})
 		}
 	}, [])
 
